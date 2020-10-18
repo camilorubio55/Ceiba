@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.ceiba.ceiba.models.UserBind" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        android:layout_margin="@dimen/sm_margin">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/md_padding"
+            android:layout_margin="@dimen/xs_margin">
+
+            <TextView
+                android:id="@+id/textView_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="@{user.name}"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Camilo Rubio" />
+
+            <ImageView
+                android:id="@+id/imageView_userPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_phone"
+                android:layout_marginTop="@dimen/xs_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_userName"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/textView_userPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/xs_margin"
+                android:text="@{user.phone}"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_userPhone"
+                app:layout_constraintStart_toEndOf="@+id/imageView_userPhone"
+                app:layout_constraintTop_toTopOf="@+id/imageView_userPhone"
+                tools:text="1-700-01-9000" />
+
+            <ImageView
+                android:id="@+id/imageView_userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xs_margin"
+                android:src="@drawable/ic_baseline_email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_userPhone"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/textView_userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{user.email}"
+                android:layout_marginStart="@dimen/xs_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_userEmail"
+                app:layout_constraintStart_toEndOf="@+id/imageView_userEmail"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_userPhone"
+                tools:text="camilorubiocontreras@gmail.com" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_showPosts"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:text="@string/title_button_show_post"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_userEmail" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

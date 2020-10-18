@@ -39,12 +39,6 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
-    }
-
-    @Provides
-    @Singleton
     fun provideRetrofit(httpClient: OkHttpClient): CeibaApi {
 
         val moshi = Moshi.Builder()

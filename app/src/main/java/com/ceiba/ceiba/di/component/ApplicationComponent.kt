@@ -2,9 +2,7 @@ package com.ceiba.ceiba.di.component
 
 import android.app.Application
 import com.ceiba.ceiba.app.CeibaApplication
-import com.ceiba.ceiba.di.modules.ActivityBindingModule
-import com.ceiba.ceiba.di.modules.ApplicationModule
-import com.ceiba.ceiba.di.modules.FragmentBindingModule
+import com.ceiba.ceiba.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -15,7 +13,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class, ApplicationModule::class, ActivityBindingModule::class,
-        FragmentBindingModule::class
+        FragmentBindingModule::class, ViewModelModule::class, RepositoryModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<CeibaApplication> {
