@@ -1,5 +1,6 @@
 package com.ceiba.ceiba.webService
 
+import com.ceiba.ceiba.db.entities.UserDB
 import com.ceiba.ceiba.dto.Post.PostResDTO
 import com.ceiba.ceiba.dto.User.UserResDTO
 import com.ceiba.ceiba.utility.Constants.CeibaApi.POSTS

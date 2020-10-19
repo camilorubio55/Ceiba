@@ -25,14 +25,20 @@ class PostsViewModel @Inject constructor(
 
     override fun getPost(userId : Int) {
         viewModelScope.launch {
-            val response = repository.getPost(userId)
-            _posts.value = if (response.isSuccessful) {
-                UIState.Success(
-                    PostResDTO.mapPostResDTOtoPostBind(response.body())
-                )
-            } else {
-                UIState.Error(
-                    response.errorBody().toString()
+            try {
+                val response = repository.getPost(userId)
+                _posts.value = if (response.isSuccessful) {
+                    UIState.Success(
+                        PostResDTO.mapPostResDTOtoPostBind(response.body())
+                    )
+                } else {
+                    UIState.Error(
+                        response.errorBody().toString()
+                    )
+                }
+            } catch (ex : Exception) {
+                _posts.value = UIState.Error(
+                    ex.toString()
                 )
             }
         }

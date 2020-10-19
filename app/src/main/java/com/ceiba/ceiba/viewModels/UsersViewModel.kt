@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ceiba.ceiba.db.entities.UserDB
 import com.ceiba.ceiba.dto.User.UserResDTO
 import com.ceiba.ceiba.ui.users.IContractUsers
 import kotlinx.coroutines.launch
@@ -19,16 +20,43 @@ class UsersViewModel @Inject constructor(
 
     override fun getUsers() {
         viewModelScope.launch {
-            val response = repository.getUsers()
-            _users.value = if (response.isSuccessful) {
-                UIState.Success(
-                    UserResDTO.mapUserResDTOtoUserBind(response.body())
-                )
-            } else {
-                UIState.Error(
-                    response.errorBody().toString()
+            try {
+                when(repository.getUsersDB().count()) {
+                    0 -> {
+                        val response = repository.getUsersRemote()
+                        _users.value = if (response.isSuccessful) {
+                            response.body()?.let { listUserResDTO ->
+                                insertUsers(
+                                    UserResDTO.mapUserResDTOtoUserDB(listUserResDTO)
+                                )
+                                UIState.Success(
+                                    UserResDTO.mapUserResDTOtoUserBind(listUserResDTO)
+                                )
+                            }
+
+                        } else {
+                            UIState.Error(
+                                response.errorBody().toString()
+                            )
+                        }
+                    }
+                    else -> {
+                        _users.value = UIState.Success(
+                            UserResDTO.mapUserDBtoUserBind(repository.getUsersDB())
+                        )
+                    }
+                }
+            } catch (ex : Exception) {
+                _users.value = UIState.Error(
+                    ex.toString()
                 )
             }
+        }
+    }
+
+    override suspend fun insertUsers(listUserDB: List<UserDB>) {
+        listUserDB.forEach { userDB ->
+            repository.insertUsers(userDB)
         }
     }
 

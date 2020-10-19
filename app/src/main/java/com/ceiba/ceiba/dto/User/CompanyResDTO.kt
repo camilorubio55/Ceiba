@@ -2,7 +2,6 @@ package com.ceiba.ceiba.dto.User
 
 import androidx.annotation.Keep
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 @Keep
 data class CompanyResDTO (

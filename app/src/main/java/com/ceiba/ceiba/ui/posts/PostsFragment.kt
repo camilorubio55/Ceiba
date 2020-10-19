@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,7 +18,6 @@ import com.ceiba.ceiba.utility.viewModel.ViewModelFactory
 import com.ceiba.ceiba.viewModels.PostsViewModel
 import com.ceiba.ceiba.viewModels.UIState
 import dagger.android.support.AndroidSupportInjection
-import timber.log.Timber
 import javax.inject.Inject
 
 class PostsFragment : Fragment() {
@@ -65,8 +65,13 @@ class PostsFragment : Fragment() {
 
         viewModel.posts.observe(viewLifecycleOwner, { status ->
             when (status) {
-                is UIState.Success -> postsAdapter.submitList(status.data as List<PostBind>)
-                is UIState.Error -> Timber.d("--- Error")
+                is UIState.Success -> {
+                    if (binding.viewSwitcher.nextView.id == binding.recyclerViewPosts.id) {
+                        binding.viewSwitcher.showNext()
+                    }
+                    postsAdapter.submitList(status.data as List<PostBind>)
+                }
+                is UIState.Error -> Toast.makeText(requireContext(), status.message, Toast.LENGTH_SHORT).show()
             }
         })
 

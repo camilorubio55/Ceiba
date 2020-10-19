@@ -1,5 +1,6 @@
 package com.ceiba.ceiba.di.modules
 
+import com.ceiba.ceiba.db.dao.UserDao
 import com.ceiba.ceiba.repository.PostsRepository
 import com.ceiba.ceiba.repository.UsersRepository
 import com.ceiba.ceiba.ui.posts.IContractPosts
@@ -14,8 +15,10 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUsersRepository(ceibaApi: CeibaApi): IContractUsers.Repository {
-        return UsersRepository(ceibaApi)
+    fun provideUsersRepository(
+        ceibaApi: CeibaApi, userDao: UserDao
+    ): IContractUsers.Repository {
+        return UsersRepository(ceibaApi, userDao)
     }
 
     @Provides

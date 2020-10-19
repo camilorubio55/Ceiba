@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class, ApplicationModule::class, ActivityBindingModule::class,
-        FragmentBindingModule::class, ViewModelModule::class, RepositoryModule::class
+        FragmentBindingModule::class, ViewModelModule::class, RepositoryModule::class, RoomModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<CeibaApplication> {
