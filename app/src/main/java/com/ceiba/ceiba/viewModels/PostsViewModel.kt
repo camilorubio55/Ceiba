@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ceiba.ceiba.dto.Post.PostResDTO
-import com.ceiba.ceiba.dto.User.UserResDTO
 import com.ceiba.ceiba.models.UserBind
 import com.ceiba.ceiba.ui.posts.IContractPosts
 import kotlinx.coroutines.launch

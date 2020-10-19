@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ceiba.ceiba.db.entities.UserDB
 import com.ceiba.ceiba.dto.User.UserResDTO
+import com.ceiba.ceiba.models.UserBind
 import com.ceiba.ceiba.ui.users.IContractUsers
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class UsersViewModel @Inject constructor(
@@ -17,6 +19,10 @@ class UsersViewModel @Inject constructor(
     private val _users = MutableLiveData<UIState>()
     val users: LiveData<UIState>
         get() = _users
+
+    private val _usersByFilter = MutableLiveData<List<UserBind>>()
+    val usersByFilter: MutableLiveData<List<UserBind>>
+        get() = _usersByFilter
 
     override fun getUsers() {
         viewModelScope.launch {
@@ -29,9 +35,9 @@ class UsersViewModel @Inject constructor(
                                 insertUsers(
                                     UserResDTO.mapUserResDTOtoUserDB(listUserResDTO)
                                 )
-                                UIState.Success(
-                                    UserResDTO.mapUserResDTOtoUserBind(listUserResDTO)
-                                )
+                                val listUserBind = UserResDTO.mapUserResDTOtoUserBind(listUserResDTO)
+                                _usersByFilter.value = listUserBind
+                                UIState.Success(listUserBind)
                             }
 
                         } else {
@@ -41,9 +47,9 @@ class UsersViewModel @Inject constructor(
                         }
                     }
                     else -> {
-                        _users.value = UIState.Success(
-                            UserResDTO.mapUserDBtoUserBind(repository.getUsersDB())
-                        )
+                        val listUserBind = UserResDTO.mapUserDBtoUserBind(repository.getUsersDB())
+                        _usersByFilter.value = listUserBind
+                        _users.value = UIState.Success(listUserBind)
                     }
                 }
             } catch (ex : Exception) {
@@ -60,5 +66,14 @@ class UsersViewModel @Inject constructor(
         }
     }
 
+    override fun filterUsers(newText: String) : List<UserBind>? {
+        return _usersByFilter.value?.filter { userBind ->
+            userBind.name.trim().toLowerCase(Locale.ROOT).contains(
+                newText.trim().toLowerCase(
+                    Locale.ROOT
+                )
+            )
+        }
+    }
 
 }

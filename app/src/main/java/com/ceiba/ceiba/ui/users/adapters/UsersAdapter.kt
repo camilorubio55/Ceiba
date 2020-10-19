@@ -19,8 +19,8 @@ class UsersAdapter(private val clickListener: (UserBind) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val chat = getItem(position)
-        holder.bind(chat, clickListener)
+        val user = getItem(position)
+        holder.bind(user, clickListener)
     }
 
     class UserViewHolder private constructor(

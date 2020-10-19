@@ -2,4 +2,7 @@
     <string name="app_name">Ceiba</string>
     <string name="title_button_show_post">Show Posts</string>
     <string name="title_post_user">User Post</string>
+    <string name="title_list_empty">¡List empty!</string>
+    <string name="title_users">Users</string>
+    <string name="title_posts">Posts</string>
 </resources>
